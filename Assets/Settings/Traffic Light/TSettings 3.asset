@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad8b727679638834aa0adaedfa0ff8be, type: 3}
-  m_Name: TSettings 2
+  m_Name: TSettings 3
   m_EditorClassIdentifier: 
-  duration: 0
-  inUISpace: 0
-  inRealSpace: 0
-  spriteOfTrafficLight: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  duration: 3
+  turnOffAfterDuration: 1
+  hasBlink: 0
+  startBlinkAfterDurationTime: 0
+  blinkFrequency: 0
   waitingColorOfLight: {r: 0, g: 0.7169812, b: 0.06185728, a: 1}
-  readyColorOfLight: {r: 0, g: 1, b: 0.08627451, a: 0}
+  readyColorOfLight: {r: 0, g: 1, b: 0.08627451, a: 1}

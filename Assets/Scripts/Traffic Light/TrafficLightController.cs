@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.Assertions;
 using UnityEngine;
 
 using TrafficLight.UI;
@@ -7,14 +8,27 @@ namespace TrafficLight
 {
 	public class TrafficLightController : MonoBehaviour
 	{
-		public TrafficLightHolder trafficLightHolder;
-		public TrafficLightSettings[] settings;
+		[Header("Traffic Lights settings")]
+		[SerializeField]
+		private TrafficLightHolder trafficLightHolder;
+		[SerializeField]
+		private TrafficLightSettings[] settings;
 		[Space]
-		public float timeToStart = 0f;
-		public bool turnOnTrafficLightsAfterCompletion;
+		[SerializeField]
+		private float timeToStart = 0f;
+		[SerializeField]
+		private bool turnOnTrafficLightsAfterCompletion = false;
+		[Space]
+		[SerializeField]
+		private bool debugMode = false;
+		private string currentStateName = "None";
+		
+		public bool DebugMode { get { return debugMode;} }
+		public string CurrentStateName { get { return currentStateName; } }
 
 		private void Start()
 		{
+			Assert.IsNotNull(trafficLightHolder);
 			trafficLightHolder.PrepareTrafficLights(settings);
 			StartCoroutine(StartTrafficLight());
 		}
@@ -25,11 +39,15 @@ namespace TrafficLight
 
 			for (int i = 0; i < settings.Length; i++)
 			{
+				currentStateName = settings[i].name;
 				float startTime = Time.time;
 				float endTime = startTime + settings[i].duration;
 
 				trafficLightHolder.TurnOnTrafficLight(settings[i], i);
-
+				if (debugMode)
+				{
+					Debug.Log("Current tarffic light: " + currentStateName);
+				}
 
 				if (settings[i].hasBlink)
 				{
@@ -49,7 +67,8 @@ namespace TrafficLight
 					trafficLightHolder.TurnOffTrafficLight(settings[i], i);
 				}
 
-				Debug.Log("time for update: " + Time.time);
+				currentStateName = "Completion";
+
 			}
 
 			if (!turnOnTrafficLightsAfterCompletion)
@@ -84,19 +103,5 @@ namespace TrafficLight
 
 			trafficLightHolder.TurnOffTrafficLight(setting, trafficLightIndex);
 		}
-
-		private IEnumerator TurnOffTrafficLightByTime(TrafficLightSettings setting, int trafficLightIndex)
-		{
-			int nextTrafficLightIndex = trafficLightIndex + 1;
-
-			if (nextTrafficLightIndex < settings.Length)
-			{
-				yield return new WaitForSeconds(settings[nextTrafficLightIndex].duration - 0.05f);
-				trafficLightHolder.TurnOffTrafficLight(setting, trafficLightIndex);
-			}
-		}
 	}
 }
-
-
-
