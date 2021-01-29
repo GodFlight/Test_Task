@@ -29,16 +29,16 @@ namespace TrafficLight
 		private void Awake()
 		{
 			currentState = null;
-		}
-
-		private void Start()
-		{
 			Assert.IsNotNull(trafficLightHolder);
-			trafficLightHolder.PrepareTrafficLights(settings);
-			StartCoroutine(StartTrafficLight());
 		}
 
-		private IEnumerator StartTrafficLight()
+		public void StartTrafficLights()
+		{
+			trafficLightHolder.PrepareTrafficLights(settings);
+			StartCoroutine(Begin());
+		}
+
+		private IEnumerator Begin()
 		{
 			yield return new WaitForSeconds(timeToStart);
 
@@ -107,5 +107,6 @@ namespace TrafficLight
 
 			trafficLightHolder.TurnOffTrafficLight(setting, trafficLightIndex);
 		}
+
 	}
 }
