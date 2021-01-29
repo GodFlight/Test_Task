@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad8b727679638834aa0adaedfa0ff8be, type: 3}
-  m_Name: TSettings 1
+  m_Name: TSettings 4
   m_EditorClassIdentifier: 
-  duration: 3
-  turnOffAfterDuration: 1
+  duration: 1
+  turnOffAfterDuration: 0
   hasBlink: 0
   startBlinkAfterBeginTime: 0
   blinkFrequency: 0
-  waitingColorOfLight: {r: 0.7830189, g: 0.036847953, b: 0, a: 1}
-  readyColorOfLight: {r: 1, g: 0.050980393, b: 0, a: 1}
+  waitingColorOfLight: {r: 0.7735849, g: 0, b: 0.7523492, a: 1}
+  readyColorOfLight: {r: 1, g: 0, b: 0.96968555, a: 1}

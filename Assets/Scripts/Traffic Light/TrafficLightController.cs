@@ -21,10 +21,15 @@ namespace TrafficLight
 		[Space]
 		[SerializeField]
 		private bool debugMode = false;
-		private string currentStateName = "None";
+		private TrafficLightSettings currentState = null;
 		
 		public bool DebugMode { get { return debugMode;} }
-		public string CurrentStateName { get { return currentStateName; } }
+		public TrafficLightSettings CurrentState { get { return currentState; } }
+
+		private void Awake()
+		{
+			currentState = null;
+		}
 
 		private void Start()
 		{
@@ -39,22 +44,22 @@ namespace TrafficLight
 
 			for (int i = 0; i < settings.Length; i++)
 			{
-				currentStateName = settings[i].name;
+				currentState = settings[i];
 				float startTime = Time.time;
 				float endTime = startTime + settings[i].duration;
 
 				trafficLightHolder.TurnOnTrafficLight(settings[i], i);
 				if (debugMode)
 				{
-					Debug.Log("Current tarffic light: " + currentStateName);
+					Debug.Log("Current tarffic light: " + currentState.name);
 				}
 
 				if (settings[i].hasBlink)
 				{
-					float delta = settings[i].duration - settings[i].startBlinkAfterDurationTime;
+					float delta = settings[i].duration - settings[i].startBlinkAfterBeginTime;
 					if (delta < 0f || delta > settings[i].duration)
 					{
-						settings[i].startBlinkAfterDurationTime = settings[i].duration / 3f;
+						settings[i].startBlinkAfterBeginTime = settings[i].duration / 3f;
 					}
 
 					StartCoroutine(BlinkTrafficLight(settings[i], endTime, i));
@@ -66,8 +71,6 @@ namespace TrafficLight
 				{
 					trafficLightHolder.TurnOffTrafficLight(settings[i], i);
 				}
-
-				currentStateName = "Completion";
 
 			}
 
@@ -82,12 +85,13 @@ namespace TrafficLight
 
 			yield return new WaitForSeconds(1f);
 
+			currentState = null;
 			trafficLightHolder.HideTrafficLights();
 		}
 
 		private IEnumerator BlinkTrafficLight(TrafficLightSettings setting, float endTime, int trafficLightIndex)
 		{
-			yield return new WaitForSeconds(setting.startBlinkAfterDurationTime);
+			yield return new WaitForSeconds(setting.startBlinkAfterBeginTime);
 
 			YieldInstruction waitForTurnOn = new WaitForSeconds(setting.blinkFrequency / 2f);
 			YieldInstruction waitForTurnOff = new WaitForSeconds(setting.blinkFrequency / 2f);

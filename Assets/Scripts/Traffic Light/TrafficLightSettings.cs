@@ -9,7 +9,7 @@ namespace TrafficLight
 		public float duration;
 		public bool turnOffAfterDuration;
 		public bool hasBlink;
-		public float startBlinkAfterDurationTime;
+		public float startBlinkAfterBeginTime;
 		public float blinkFrequency;
 		public Color waitingColorOfLight;
 		public Color readyColorOfLight;
