@@ -7,9 +7,10 @@ namespace TrafficLight
 	{
 		[Range(0f, 25f)]
 		public float duration;
-		public bool inUISpace;
-		public bool inRealSpace = false;
-		public Sprite spriteOfTrafficLight;
+		public bool turnOffAfterDuration;
+		public bool hasBlink;
+		public float startBlinkAfterDurationTime;
+		public float blinkFrequency;
 		public Color waitingColorOfLight;
 		public Color readyColorOfLight;
 	}
