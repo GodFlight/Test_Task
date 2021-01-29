@@ -30,6 +30,10 @@ namespace TrafficLight
 		{
 			currentState = null;
 			Assert.IsNotNull(trafficLightHolder);
+			if (settings.Length > 8)
+			{
+				Debug.LogError("Traffic light elements cannot be more than 8");
+			}
 		}
 
 		public void StartTrafficLights()
