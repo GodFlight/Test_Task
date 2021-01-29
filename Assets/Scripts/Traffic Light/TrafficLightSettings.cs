@@ -10,7 +10,8 @@ namespace TrafficLight
 		public bool inUISpace;
 		public bool inRealSpace = false;
 		public Sprite spriteOfTrafficLight;
-		public Color colorOfLight;
+		public Color waitingColorOfLight;
+		public Color readyColorOfLight;
 	}
 }
 
